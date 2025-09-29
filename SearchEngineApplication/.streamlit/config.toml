@@ -1,0 +1,15 @@
+[theme]
+# A vibrant, natural green for accents
+primaryColor="#22C55E"
+
+# A very dark, forest-green-tinted background
+backgroundColor="#0A120D"
+
+# A dark slate green for sidebars and cards
+secondaryBackgroundColor="#1A2E23"
+
+# A soft, cream-colored text for a natural feel
+textColor="#F0FDF4"
+
+# An elegant serif font can also work well here
+font="serif"
