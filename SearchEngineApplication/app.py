@@ -10,450 +10,170 @@ logger = logging.getLogger(__name__)
 
 st.set_page_config(page_title="Semantic Search Engine", layout="wide")
 
+# --- NEW "CLASSIC LUXURY - DARK MODE" THEME ---
 custom_css = """
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap');
 
+    /* --- General & Typography --- */
     html, body, [class*="st-"] {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Lato', sans-serif;
     }
 
     .block-container {
         padding-top: 2rem;
         padding-bottom: 1rem;
     }
+    
     [data-testid="stAppViewContainer"] {
-        background-color: #0E1117;
+        background-color: #0E1117; /* Off-black background */
     }
 
-    h1 { color: #FAFAFA; }
-    h2, h3 { color: #E0E0E0; padding-bottom: 1rem;}
-
-    [data-testid="stChatMessageContent"] {
-        background-color: #1E293B;
-        border-radius: 15px;
-        padding: 12px;
+    h1, h2, h3 {
+        font-family: 'Playfair Display', serif;
+        color: #FAFAFA; /* Light text for dark background */
+        padding-bottom: 1rem;
     }
-    [data-testid="stChatMessageContent"] p {
-        color: #FAFAFA;
+    
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.5rem; }
+    p, .stMarkdown, .stSelectbox label {
+        color: #E0E0E0; /* Softer light text */
     }
 
+    /* --- Cards --- */
     .card {
-        background-color: #181E29;
-        border-radius: 15px;
+        background-color: #181E29; /* Dark card background */
+        border-radius: 8px;
         padding: 1.5rem;
         margin-bottom: 1rem;
-        border: 1px solid #334155;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #334155; /* Muted border */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
         min-height: 200px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .product-card {
-        position: relative;
-        background: linear-gradient(145deg, #181E29 0%, #1E293B 100%);
-    }
-
-    .product-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.1), transparent);
-        transition: left 0.6s ease;
-    }
-
-    .product-card:hover::before {
-        left: 100%;
     }
 
     .product-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow:
-            0 20px 40px rgba(0, 0, 0, 0.3),
-            0 8px 16px rgba(20, 184, 166, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        border-color: #14B8A6;
-        background: linear-gradient(145deg, #1E293B 0%, #0F172A 100%);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        border-color: #D4AF37; /* Brighter Gold Accent for Dark Mode */
+    }
+    
+    .card-title {
+        color: #D4AF37; /* Brighter Gold Accent */
+        font-size: 1.1rem;
+        font-weight: 700; /* Use Lato Bold */
+    }
+    .card-brand {
+        color: #FFFFFF; /* White text for brand */
+        font-weight: bold;
     }
 
-    .card-content {
-        flex-grow: 1;
-        z-index: 1;
-        position: relative;
-    }
-
-    .card-button-container {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 1rem;
-        z-index: 2;
-        position: relative;
-    }
-
-    .product-card .card-title {
-        transition: color 0.3s ease;
-    }
-
-    .product-card:hover .card-title {
-        color: #2DD4BF;
-        text-shadow: 0 0 8px rgba(45, 212, 191, 0.3);
-    }
-
-    .button-spacer {
-        height: 0.8rem;
-    }
-
-    /* Card styling improvements */
-    .card {
-        position: relative;
-    }
-
-    /* Professional Button Styling */
+    /* --- Buttons --- */
     .stButton > button, .stFormSubmitButton > button {
-        position: relative;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #14B8A6 0%, #0F766E 100%);
-        color: #FFFFFF;
-        border: none;
-        font-weight: 600;
+        border-radius: 8px;
+        background-color: #D4AF37; /* Brighter Gold Accent */
+        color: #181E29; /* Dark text on button */
+        border: 1px solid #D4AF37;
+        font-weight: 700;
         font-size: 0.875rem;
-        padding: 0.75rem 1.5rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow:
-            0 4px 14px rgba(20, 184, 166, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        overflow: hidden;
+        padding: 0.7rem 1.4rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         text-transform: uppercase;
         letter-spacing: 0.5px;
-    }
-
-    .stButton > button::before, .stFormSubmitButton > button::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.5s ease;
-    }
-
-    .stButton > button:hover::before, .stFormSubmitButton > button:hover::before {
-        left: 100%;
     }
 
     .stButton > button:hover, .stFormSubmitButton > button:hover {
-        background: linear-gradient(135deg, #0F766E 0%, #0D9488 100%);
-        transform: translateY(-2px) scale(1.05);
-        box-shadow:
-            0 8px 25px rgba(20, 184, 166, 0.4),
-            0 4px 10px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        background-color: #C09B2C; /* Darker gold on hover */
+        border-color: #C09B2C;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-
+    
     .stButton > button:active, .stFormSubmitButton > button:active {
-        transform: translateY(1px) scale(0.98);
-        box-shadow:
-            0 2px 8px rgba(20, 184, 166, 0.3),
-            inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        transform: translateY(0px);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
     }
 
-    /* Sidebar Professional Styling */
+    /* --- Sidebar --- */
     .stSidebar {
-        background: linear-gradient(180deg, #0E1117 0%, #1E293B 100%) !important;
+        background: #0E1117 !important; /* Match app background */
         border-right: 1px solid #334155 !important;
-        position: relative !important;
     }
 
-    .stSidebar::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 2px;
-        height: 100%;
-        background: linear-gradient(180deg, transparent, #14B8A6, transparent);
-        opacity: 0.6;
-    }
-
-    /* Sidebar Content Styling */
     .stSidebar .stMarkdown h3 {
-        color: #2DD4BF !important;
-        text-shadow: 0 0 10px rgba(45, 212, 191, 0.3);
-        font-weight: 700;
-        margin-bottom: 1.5rem;
+        color: #D4AF37 !important;
         text-align: center;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #14B8A6;
+        border-bottom: 2px solid #334155;
     }
-
-    .stSidebar .stSelectbox label {
-        color: #E2E8F0 !important;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-size: 0.875rem;
-    }
-
+    
     .stSidebar .stSelectbox > div > div {
-        background: linear-gradient(135deg, #1E293B 0%, #334155 100%) !important;
+        background-color: #181E29 !important;
         border: 1px solid #475569 !important;
-        border-radius: 10px !important;
-        transition: all 0.3s ease !important;
+        border-radius: 8px !important;
+        transition: all 0.2s ease !important;
     }
 
     .stSidebar .stSelectbox > div > div:hover {
-        border-color: #14B8A6 !important;
-        box-shadow: 0 0 15px rgba(20, 184, 166, 0.3) !important;
-        transform: translateY(-1px) !important;
+        border-color: #D4AF37 !important;
+        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15) !important;
     }
 
-    /* Chat Interface Professional Styling */
+    /* --- Chat Interface --- */
     [data-testid="stChatMessageContent"] {
-        background: linear-gradient(135deg, #1E293B 0%, #334155 100%) !important;
-        border-radius: 18px !important;
-        padding: 14px 16px 14px 16px !important;
-        border: 1px solid #475569 !important;
-        position: relative !important;
-        overflow: hidden !important;
-        margin: 6px 0 !important;
-        min-height: auto !important;
+        background-color: #1E293B !important; /* Dark blue-grey for messages */
+        border-radius: 12px !important;
+        padding: 12px !important;
+        border: none !important;
     }
-
-    [data-testid="stChatMessageContent"]::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #14B8A6, transparent);
-        opacity: 0.7;
-    }
-
     [data-testid="stChatMessageContent"] p {
-        color: #F1F5F9 !important;
-        line-height: 1.5 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        vertical-align: top !important;
-        display: block !important;
+        color: #F1F5F9 !important; /* Light text for readability */
     }
-
-    [data-testid="stChatMessageContent"] div {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* Fix chat message container spacing */
-    [data-testid="stChatMessage"] {
-        margin: 6px 0 !important;
-        padding: 0 !important;
-    }
-
-    /* Fix vertical alignment of text in chat messages */
-    [data-testid="stChatMessageContent"] > div {
-        display: flex !important;
-        align-items: flex-start !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* Chat Input Proper Styling - Fixed Positioning */
-    .stChatInput {
-        padding: 0 !important;
-        margin: 0 !important;
-        width: 100% !important;
-    }
-
-    .stChatInput > div {
-        padding: 0 !important;
-        margin: 0 !important;
-        width: 100% !important;
-    }
-
+    
     .stChatInput textarea {
         min-height: 52px !important;
-        border-radius: 16px !important;
-        border: 2px solid #14B8A6 !important;
-        background: linear-gradient(135deg, #1E293B 0%, #334155 100%) !important;
+        border-radius: 12px !important;
+        border: 2px solid #475569 !important;
+        background-color: #181E29 !important;
         color: #F1F5F9 !important;
         padding: 14px 18px !important;
-        resize: vertical !important;
-        max-height: 160px !important;
-        font-size: 0.95rem !important;
-        line-height: 1.5 !important;
-        transition: all 0.3s ease !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        margin: 0 !important;
+        transition: all 0.2s ease !important;
     }
 
     .stChatInput textarea:focus {
-        border-color: #14B8A6 !important;
-        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
-        box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15) !important;
+        border-color: #D4AF37 !important;
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2) !important;
         outline: none !important;
     }
-
+    
     .stChatInput textarea::placeholder {
         color: #94A3B8 !important;
-        opacity: 0.8 !important;
     }
 
-    /* Enhanced Search Results Header */
-    h1, h2 {
-        background: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-shadow: 0 0 30px rgba(45, 212, 191, 0.3);
-        font-weight: 800;
-    }
-
-    /* Scrollbar Styling for All Elements */
+    /* --- Scrollbar Styling --- */
     ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
     }
-
     ::-webkit-scrollbar-track {
-        background: #1E293B;
+        background: #181E29;
         border-radius: 4px;
     }
-
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #14B8A6 0%, #0F766E 100%);
+        background-color: #475569;
         border-radius: 4px;
-        border: 1px solid #0F172A;
+        border: 2px solid #181E29;
     }
-
     ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #2DD4BF 0%, #14B8A6 100%);
+        background-color: #64748B;
     }
-
-    /* Simple Clean Spinner */
-    .stSpinner > div {
-        border-color: #14B8A6 !important;
-        border-top-color: transparent !important;
-    }
-
-    /* Progress Bar and Status Messages */
-    .stProgress > div > div > div > div {
-        background: linear-gradient(90deg, #14B8A6 0%, #0F766E 100%) !important;
-        border-radius: 4px !important;
-    }
-
-    .stProgress > div > div {
-        background: #1E293B !important;
-        border-radius: 4px !important;
-        border: 1px solid #334155 !important;
-    }
-
-    /* Professional Alert/Info/Success styling */
-    .stAlert, .stInfo, .stSuccess, .stWarning, .stError {
-        background: linear-gradient(135deg, #1E293B 0%, #334155 100%) !important;
-        border-radius: 12px !important;
-        border-left: 4px solid #14B8A6 !important;
-        padding: 1rem 1.5rem !important;
-        margin: 1rem 0 !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    }
-
-    .stAlert p, .stInfo p, .stSuccess p, .stWarning p, .stError p {
-        color: #F1F5F9 !important;
-        margin: 0 !important;
-    }
-
-    /* Enhanced Modal Styling */
-    div[data-testid="stModal"] {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        background-color: rgba(0, 0, 0, 0.8) !important;
-        backdrop-filter: blur(4px) !important;
-        z-index: 9999 !important;
-        padding: 2rem !important;
-    }
-
-    div[data-testid="stModal"] > div:first-child {
-        position: relative !important;
-        width: 90% !important;
-        max-width: 700px !important;
-        max-height: 90vh !important;
-        transform: none !important;
-        border-radius: 20px !important;
-        background: linear-gradient(135deg, #0E1117 0%, #1E293B 100%) !important;
-        border: 1px solid #334155 !important;
-        box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.5),
-            0 0 40px rgba(20, 184, 166, 0.1) !important;
-        overflow: hidden !important;
-    }
-
-    /* Modal header styling */
-    div[data-testid="stModal"] h1,
-    div[data-testid="stModal"] h2,
-    div[data-testid="stModal"] h3 {
-        background: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
-        background-clip: text !important;
-        margin-bottom: 1.5rem !important;
-        padding-bottom: 0.5rem !important;
-        border-bottom: 2px solid #14B8A6 !important;
-    }
-
-    /* Modal close button enhancement */
-    div[data-testid="stModal"] button[kind="headerNoPadding"] {
-        position: absolute !important;
-        top: 1rem !important;
-        right: 1rem !important;
-        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
-        border-radius: 50% !important;
-        width: 32px !important;
-        height: 32px !important;
-        border: none !important;
-        color: white !important;
-        font-size: 18px !important;
-        font-weight: bold !important;
-        cursor: pointer !important;
-        transition: all 0.3s ease !important;
-        z-index: 10000 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-
-    div[data-testid="stModal"] button[kind="headerNoPadding"]:hover {
-        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
-        transform: scale(1.1) !important;
-        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4) !important;
-    }
-    .card-title {
-        color: #14B8A6;
-        font-size: 1.1rem;
-        font-weight: 600;
-    }
-    .card-brand {
-        color: #FFFFFF;
-        font-weight: bold;
-    }
-
-
-
+    
+    /* --- General Cleanup & Hiding Elements --- */
     /* Hide all sidebar toggle elements and related controls */
     [data-testid="collapsedControl"],
     [data-testid="stSidebarNav"] button[kind="headerNoPadding"],
@@ -469,21 +189,9 @@ custom_css = """
         visibility: hidden !important;
     }
 
-    /* Keep sidebar always visible and nicely styled */
-    .stSidebar {
-        background-color: #0E1117 !important;
-        border-right: 1px solid #334155 !important;
-    }
-
-    /* Make main content area adjust properly */
     .main .block-container {
         padding-left: 1rem !important;
         max-width: none !important;
-    }
-
-    /* Hide any remaining toggle elements that might appear */
-    [class*="toggle"], [class*="Toggle"], [class*="collapse"], [class*="Collapse"] {
-        display: none !important;
     }
 
     /* Hide scrollbars for search results container */
@@ -496,7 +204,6 @@ custom_css = """
     [data-testid="stVerticalBlock"] > div[style*="height: 800px"]::-webkit-scrollbar {
         display: none !important; /* Chrome, Safari, Opera */
     }
-
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
