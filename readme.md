@@ -119,7 +119,7 @@ Smart Search Weaviate/
 *Integrated results dashboard combining search output with conversational interface*
 
 #### **Contextual Conversation Processing**
-![Second Search In Progress](SearchEngineApplication/assets/SecondSearchInProgress.png)
+![Second Search In Progress](SearchEngineApplication/assets/SearchInProgress2.png)
 *Context-aware dialogue processing with historical query integration*
 
 ![Second Search Results](SearchEngineApplication/assets/SecondSearchResults.png)
