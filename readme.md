@@ -111,7 +111,7 @@ Smart Search Weaviate/
 *Minimalist landing interface emphasizing search-first interaction patterns*
 
 #### **Processing State Visualization**
-![Search In Progress](SearchEngineApplication/assets/InitialSearchInProgress.png)
+![Search In Progress](SearchEngineApplication/assets/SearchInProgress.png)
 *Sophisticated loading indicators with smooth transition animations*
 
 #### **Result Presentation Layer**
