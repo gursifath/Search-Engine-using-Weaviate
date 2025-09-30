@@ -107,7 +107,7 @@ Smart Search Weaviate/
 ### **🚀 Comprehensive User Flow**
 
 #### **Entry Point Interface**
-![Initial Search Page](SearchEngineApplication/assets/InitalSearchPage.png)
+![Initial Search Page](SearchEngineApplication/assets/LandingPage.png)
 *Minimalist landing interface emphasizing search-first interaction patterns*
 
 #### **Processing State Visualization**
