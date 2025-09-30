@@ -115,7 +115,7 @@ Smart Search Weaviate/
 *Sophisticated loading indicators with smooth transition animations*
 
 #### **Result Presentation Layer**
-![Post Search Results](SearchEngineApplication/assets/FirstTimePostSearch.png)
+![Post Search Results](SearchEngineApplication/assets/SearchResults.png)
 *Integrated results dashboard combining search output with conversational interface*
 
 #### **Contextual Conversation Processing**
