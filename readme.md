@@ -130,7 +130,7 @@ Smart Search Weaviate/
 *Dynamic product cards featuring advanced hover interactions and visual feedback*
 
 #### **Comprehensive Product Detail Views**
-![Product Modal](SearchEngineApplication/assets/ProductModalPostSearchOnClick.png)
+![Product Modal](SearchEngineApplication/assets/OnClickModal.png)
 *Modal interfaces providing detailed product information with scrollable content architecture*
 
 ### **Contemporary Design Framework**
