@@ -122,7 +122,7 @@ Smart Search Weaviate/
 ![Second Search In Progress](SearchEngineApplication/assets/SearchInProgress2.png)
 *Context-aware dialogue processing with historical query integration*
 
-![Second Search Results](SearchEngineApplication/assets/SecondSearchResults.png)
+![Second Search Results](SearchEngineApplication/assets/SearchResults2.png)
 *Refined search output leveraging conversational context for enhanced relevance*
 
 #### **Interactive Product Presentation**
