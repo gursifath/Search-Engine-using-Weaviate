@@ -126,7 +126,7 @@ Smart Search Weaviate/
 *Refined search output leveraging conversational context for enhanced relevance*
 
 #### **Interactive Product Presentation**
-![Product Card Hover Effect](SearchEngineApplication/assets/SecondSearchOnHoverProductCard.png)
+![Product Card Hover Effect](SearchEngineApplication/assets/HoverEffect.png)
 *Dynamic product cards featuring advanced hover interactions and visual feedback*
 
 #### **Comprehensive Product Detail Views**
