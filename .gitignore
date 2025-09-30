@@ -1,4 +1,6 @@
 # Ignore environment variable files
+.myenv
+*.myenv
 .env
 *.env
 
