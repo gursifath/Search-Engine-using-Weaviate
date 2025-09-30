@@ -47,19 +47,19 @@ This project represents a **comprehensive AI-driven search ecosystem** that exem
 
 ### **Scalable Multi-Tier Architecture**
 ```
-Smart Search Weaviate/
+Search Engine Weaviate/
 ├── SearchEngineApplication/    # Main application
 │   ├── backend/                # FastAPI backend services
-│   │   ├── routes/             # RESTful API endpoints
-│   │   ├── helpers/            # Business logic & utilities
-│   │   ├── models/             # Pydantic data models
+│   │   ├── routes.py           # RESTful API endpoints
+│   │   ├── helpers.py          # Business logic & utilities
+│   │   ├── models.py           # Pydantic data models
 │   │   └── client.py           # OpenAI integration layer
 │   ├── components/             # Streamlit UI components
 │   │   ├── search_interface.py # Search UI component
 │   │   ├── search_results.py   # Results display component
 │   │   └── chat.py             # Chat interface component
 │   └── utils.py                # Frontend utilities & API calls
-|── Data_Preprocessor           # Data processing pipeline
+├── Data_Preprocessor/          # Data processing pipeline
 ├── Data_Ingestion/             # Ingesting data to Vector DB
 └── Data_Querying/              # Search query processing
 ```
@@ -161,7 +161,7 @@ Smart Search Weaviate/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/SearchEngineWeaviate.git
+   git clone https://github.com/gursifath/Search-Engine-using-Weaviate.git
    cd SearchEngineWeaviate
    ```
 
@@ -180,8 +180,8 @@ Smart Search Weaviate/
 
 4. **Data Ingestion (First Time Setup)**
    ```bash
-   cd Ingestion
-   python ingest_data.py  # Populate Weaviate with product data
+   cd Data_Ingestion
+   run the data-ingestion.ipynb file  # Populate Weaviate with product data
    ```
 
 5. **Start the backend server**
