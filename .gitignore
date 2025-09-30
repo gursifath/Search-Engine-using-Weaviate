@@ -11,3 +11,6 @@ myenv
 Dataset/
 
 !.streamlit
+
+__pycache__/
+*/__pycache__/
